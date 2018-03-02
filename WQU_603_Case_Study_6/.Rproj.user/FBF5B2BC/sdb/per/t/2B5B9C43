@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "# Require the Quantmod package\nrequire(quantmod)\n\n# Get the 1 Year DJIA Data\nDJIA_index <- getSymbols(Symbols = \"DJIA\",\n                         src = \"yahoo\",\n                         from = \"2016-03-31\",\n                         to = \"2017-03-31\",\n                         retrun.class = \"xts\")\n\n# Get the components\nDJIA_tickers <- c(\"AAPL\", \"AXP\", \"BA\", \"CAT\", \"CSCO\",\n                  \"CVX\", \"KO\", \"DD\", \"XOM\", \"GE\",\n                  \"GS\", \"HD\", \"IBM\", \"INTC\", \"JNJ\",\n                  \"JPM\", \"MCD\", \"MMM\", \"MRK\", \"MSFT\",\n                  \"NKE\", \"PFE\", \"PG\", \"TRV\", \"UNH\",\n                  \"UTX\", \"V\", \"VZ\", \"WMT\", \"DIS\")\n\nDJIA_components <- getSymbols(Symbols = DJIA_tickers,\n                              src = \"yahoo\",\n                              from = \"2016-03-31\",\n                              to = \"2017-03-31\",\n                              return.class = \"xts\")\n\n# Get the Daily returns\n# DJIA Index Daily Return\ndaily_DJIA_index <- dailyReturn(DJIA)\n\n# DJIA Components Daily Returns\nfor(i in 1:length(DJIA_tickers)) {\n  assign(paste(DJIA_tickers[i], \"_daily_DJIA_component\", sep=\"\"),\n         dailyReturn(eval(as.name(DJIA_tickers[i]))))\n}\n\n# Function to calculate Linear Model\ncalculate_linear_models<- function(daily_index_return, daily_stock_return){\n  daily_index_return <- as.vector(daily_index_return)\n  daily_stock_return <- as.vector(daily_stock_return)\n  map_dataframe <- data.frame(dija_daily = daily_index_return,\n                              component_daily = daily_stock_return)\n  linear_model <- lm(daily_index_return ~ daily_stock_return, data = map_dataframe)\n  alpha <- coef(linear_model)[\"(Intercept)\"]\n  beta <- coef(linear_model)[\"daily_stock_return\"]\n  return (c(alpha, beta))\n}\n\n# Init Variables\ncomponent_alphas <- c()\ncomponent_betas <- c()\n\nfor(i in 1:length(DJIA_tickers)) {\n  stock_linear_reg <- calculate_linear_models(daily_DJIA_index,\n                                              eval(as.name(paste(DJIA_tickers[i],\"_daily_DJIA_component\",sep = \"\"))))\n  print(paste('The alpha for stock ', DJIA_tickers[i], ' is ', stock_linear_reg[1], sep=''))\n  print(paste('The beta for stock ', DJIA_tickers[i], ' is ', stock_linear_reg[2], sep=''))\n  \n  component_alphas <- c(component_alphas, stock_linear_reg[1])\n  component_betas <- c(component_betas, stock_linear_reg[2])\n}\n\n# Plot the graphs\nhist(component_alphas, breaks=20, main=\"Alpha Distribution\")\nhist(component_betas, breaks=20, main=\"Beta Distribution\")",
+    "created" : 1491349089263.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1934716767",
+    "id" : "2B5B9C43",
+    "lastKnownWriteTime" : 1491351242,
+    "last_content_update" : 1491351242854,
+    "path" : "~/WQU_603_Case_Study_6/CaseStudy6.R",
+    "project_path" : "CaseStudy6.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

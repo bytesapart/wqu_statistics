@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1491326744793.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "4F05F78C",
+    "lastKnownWriteTime" : 2475889227096345666,
+    "last_content_update" : 1491326744793,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "58A8D081",
+        "caption" : "AAPL_daily_snp_component",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=AAPL_daily_snp_component&cache_key=58A8D081",
+        "displayedObservations" : 254,
+        "environment" : "",
+        "object" : "AAPL_daily_snp_component",
+        "preview" : 0,
+        "totalObservations" : 254,
+        "variables" : 1
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

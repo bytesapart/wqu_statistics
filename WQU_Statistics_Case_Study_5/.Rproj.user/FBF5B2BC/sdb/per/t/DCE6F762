@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "# Require the Quantmod package\nrequire(quantmod)\n\n# Get the 1 Year S&P500 Data\nprint('Get 1 Year Data for S&P500')\nsnp_index <- getSymbols(Symbols = \"^GSPC\",\n                        src = \"yahoo\",\n                        from = \"2016-03-31\",\n                        to = \"2017-03-31\",\n                        retrun.class = \"xts\")\n\n# Get 10 of the component tickers\nprint('Get 1 Year Data for 10 of the componets of S&P500')\nsnp_tickers <- c(\"ADBE\", \"AAPL\", \"BAC\", \"BLK\", \"JPM\",\n                 \"GS\", \"MS\", \"GOOG\", \"MSFT\", \"ADSK\")\n\n# Get the data for the 10 components\nsnp_composite <- getSymbols(Symbols = snp_tickers,\n                            src = \"yahoo\",\n                            from = \"2016-03-31\",\n                            to = \"2017-03-31\",\n                            return.class = \"xts\")\n\n\n# Calculate the daily returns of SnP500\nprint('Get 1 Year Data for S&P500')\nsnp_daily_returns <- dailyReturn(GSPC)\n\n# Calculate the daily returns of 10 of it's constituents\nfor(i in 1:length(snp_tickers)) {\n  assign(paste(snp_tickers[i], \"_daily_snp_component\", sep=\"\"),\n         dailyReturn(eval(as.name(snp_tickers[i]))))\n}\n\n# Null Hypothesis calculation for all the stocks\ncalculate_hypothesis <- function(daily_return_of_stock, name_of_stock) {\n  # Student's T Test --> (xbar - u0) / s / sqrt(n)\n  # u0 = 0, since mean daily stock is zero\n  # xbar is mean, s is sd of returns, n = degree's of freedom (the number of independent observations in the sample minus one)\n  \n  u0 <- 0\n  xbar <- mean(daily_return_of_stock)\n  s <- sd(daily_return_of_stock)\n  n <- length(daily_return_of_stock)\n  t <- (xbar - u0) / (s / sqrt(n))\n  \n  # Display T-Value\n  print(paste('T-Value for ', name_of_stock, 'is ', t, sep=''))\n  \n  # Calculation of p-value using t-value\n  # http://www.cyclismo.org/tutorial/R/pValues.html\n  p <- 2 * pt(-abs(t), df = n - 1, lower = FALSE)\n  \n  print(paste('P-Value for ', name_of_stock, 'is ', p, sep=''))\n  \n  # Hypothesis Testing\n  print(paste('Null Hypothesis (h0): ', name_of_stock, '\\'s mean daily return is equal to 0 ',\n              'that is, u = 0', sep=''))\n  print(paste('Alternate Hypothesis (h1): ', name_of_stock, '\\'s mean daily return is not equal to 0 ',\n              'that is, u = 0', sep=''))\n  print('Test for H0')\n  alpha = 5/100 # 5% Alpha\n  if (p <= alpha) {\n    print(paste('Reject H0 for', name_of_stock))\n    print('\\n')\n    return (0)\n  } else {\n    print(paste('Accept H0 for', name_of_stock))\n    print('\\n')\n    return (1)\n  }\n  \n}\n\n# Calc Hypo \nhypo_calc <-c(calculate_hypothesis(AAPL_daily_snp_component, 'AAPL'), calculate_hypothesis(ADBE_daily_snp_component, 'ADBE'), calculate_hypothesis(ADSK_daily_snp_component, 'ADSK'),\n  calculate_hypothesis(BAC_daily_snp_component, 'BAC'), calculate_hypothesis(BLK_daily_snp_component, 'BLK'), calculate_hypothesis(GOOG_daily_snp_component, 'GOOG'),\n  calculate_hypothesis(GS_daily_snp_component, 'GS'), calculate_hypothesis(snp_daily_returns, 'SNP500'), calculate_hypothesis(JPM_daily_snp_component, 'JPM'),\n  calculate_hypothesis(MS_daily_snp_component, 'MS'), calculate_hypothesis(MSFT_daily_snp_component, 'MSFT'))\nprint('The number of stocks for which H0 was accepted:')\nprint(paste(sum(hypo_calc)))\n",
+    "created" : 1491151887447.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "250484119",
+    "id" : "DCE6F762",
+    "lastKnownWriteTime" : 1491328902,
+    "last_content_update" : 1491328902252,
+    "path" : "~/WQU_Statistics_Case_Study_5/CaseStudy5.R",
+    "project_path" : "CaseStudy5.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

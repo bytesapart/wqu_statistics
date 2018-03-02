@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1491152847545.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "A5A1FC60",
+    "lastKnownWriteTime" : 5292976843906638626,
+    "last_content_update" : 1491152847545,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "25E0368A",
+        "caption" : "GSPC",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=GSPC&cache_key=25E0368A",
+        "displayedObservations" : 254,
+        "environment" : "",
+        "object" : "GSPC",
+        "preview" : 0,
+        "totalObservations" : 254,
+        "variables" : 6
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1491136223406.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "68E1CAB6",
+    "lastKnownWriteTime" : 7308604914264011873,
+    "last_content_update" : 1491136223406,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "7FCB842F",
+        "caption" : "five_stock_portfolio",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=five_stock_portfolio&cache_key=7FCB842F",
+        "displayedObservations" : 37,
+        "environment" : "",
+        "object" : "five_stock_portfolio",
+        "preview" : 0,
+        "totalObservations" : 37,
+        "variables" : 5
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

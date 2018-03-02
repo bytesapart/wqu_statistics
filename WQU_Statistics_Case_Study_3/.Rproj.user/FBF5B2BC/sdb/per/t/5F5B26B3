@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "# Given,\n# s[t+1] = s[t] * exp ((r - 0.5 * (sig ^ 2)) * dt + sigma * epsilon * sqrt(dt))\n# where,\n# s[t] is the stock price at t\n# S[t+1] is the stock price at t+1\n# r is the expected annual stock return\n# sigma is the annualized volatility of the underlying stock\n# T is time in Years\n# n is the number of steps involved in calculation\n# dt is the unit step size, that is, dt = T/n\n# epsilon is random value from rnom()\n\n# Initialize the variables to the values given in the problem\nst <- 10  # The stock price at 't', that is, the first stock price\nr <- 0.15  # Expected anual stock return\nsigma <- 0.2  # Annualized Volatility of the stock\nt <- 1  # Time in years\nn <- 100  # Number of steps, in this case, 100\nepsilon <- 0.15  # Random value from a normal distribution\n\n# Function to calculate price movement\ncalculate_price_movement = function(st, r, sigma, t, n , rand_eps_flag) {\n  # Create a vector to contain the price_movements_at_st+1\n  st_plus_one <- vector()\n  # Since our vector consists of t,t+1,t+2...t+n, therefore the first\n  # element of our vector will be st. Therefore,\n  st_plus_one[1] <- st\n  # See if random epsilon is true, if so, then use the random epsilon\n  # Calculate dt\n  dt <- t / n\n  # Use a for loop and calculate st+1 till steps\n  for(i in 1:n) {\n    if(rand_eps_flag) {\n      epsilon <- rnorm(1)\n    } else {\n      epsilon <- 0.15\n    }\n    st_plus_one[i + 1] <- st_plus_one[i] * exp(((r - (0.5 * (sigma ^ 2))) * dt + (sigma * epsilon * sqrt(dt)))) \n  }\n  return (st_plus_one)\n}\n\n# Calculate value for given_epsilon_prices where the epsilon is given in the question\ngiven_epsilon_prices <- calculate_price_movement(st,r,sigma,t,n,FALSE)\n\n# Plot the graph of given_epsilon_prices\nplot(given_epsilon_prices,\n     main = 'Given epsilon in the question for each time step',\n     xlab = 'Step', \n     ylab = 'Stock Price', \n     xlim = c(0, 100), \n     ylim = c(0, 20), \n     type='l',\n     col=\"chocolate\")\n\n# Calculate for random epsilon\nrandom_epsilon_prices <- calculate_price_movement(st,r,sigma,t,n,TRUE)\n# Plot the graph of price_plus_one\nplot(random_epsilon_prices, \n     main = 'Random epsilon using rnom() in each time step',\n     xlab = 'Step', \n     ylab = 'Stock Price', \n     xlim = c(0, 100), \n     ylim = c(0, 20), \n     type='l',\n     col=\"magenta\")\n\n# Plot for 5 trials of 100 steps each\ncolors_of_lines <- c(\"red\", \"blue\", \"green\", \"yellow\", \"orange\")\nthe_trials <- matrix(nrow = 101,\n                     ncol = 5,\n                     byrow = FALSE)\n\nfor(i in 1:5) {\n  the_trials[, i] <- calculate_price_movement(st, r, sigma, t, n, TRUE)\n}\n\nmatplot(the_trials, \n     main = 'Five Trials with Random Elipson in each time step',\n     xlab = 'Step', \n     ylab = 'Stock Price', \n     xlim = c(0, 100), \n     ylim = c(0, 20), \n     type='l',\n     col=colors_of_lines)\nlegend(\"bottomright\", inset=.05, legend=c(\"Trial 1\", \"Trial 2\", \"Trial 3\", \"Trial 4\", \"Trial 5\"), lty = 1, col=colors_of_lines, horiz=TRUE, cex = 0.8)",
+    "created" : 1490534180683.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2646714286",
+    "id" : "5F5B26B3",
+    "lastKnownWriteTime" : 1490543080,
+    "last_content_update" : 1490543080503,
+    "path" : "~/WQU_Statistics_Case_Study_3/Case_Study_III.R",
+    "project_path" : "Case_Study_III.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
